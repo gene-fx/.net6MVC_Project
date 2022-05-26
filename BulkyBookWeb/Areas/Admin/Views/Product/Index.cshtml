@@ -1,0 +1,61 @@
+﻿@model IEnumerable<BulkyBook.Models.Product>
+@{
+	ViewData["Title"] = "Product";
+}
+
+<div class="container p-3">
+	<div class="row pt-4">
+		<div class="col-6">
+			<h2 class="text-success">Product List</h2>
+		</div>
+		<div class="col-6 text-end">
+			<a asp-area="Admin" asp-controller="Product" asp-action="Upsert" type="button" class="btn btn-primary btn-lg">
+				<i class="bi bi-plus-square"></i> &nbsp; New Product</a>
+		</div>
+	</div>
+</div>
+
+<div class="container p-2">
+	<div class="">
+		<table class="table table-bordered table-striped table-secondary" style="width:100%">
+			<thead>
+				<tr>
+					<th>
+						<label class="text text-success">Title</label>
+					</th>
+					<th>
+						<label class="text text-success">ISBN</label>
+					</th>
+					<th>
+						<label class="text text-success">Author</label>
+					</th>
+					<th>
+						<label class="text text-success">Category</label>
+					</th>
+					<th>
+						<label class="text text-success">Price</label>
+					</th>
+					<th class="text-center" style="width:15%">
+						<label class="text text-success">Options</label>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach(var obj in Model)
+				{
+					<tr>
+						<td>@obj.Title</td>
+						<td>@obj.ISBN</td> 
+						<td>@obj.Author</td>
+						<td>@obj.Category.Name</td>
+						<td>@obj.Price</td>
+						<td class="text-center">
+							<a asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-secondary">Edit</a>
+							<a asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-danger">Delete</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
