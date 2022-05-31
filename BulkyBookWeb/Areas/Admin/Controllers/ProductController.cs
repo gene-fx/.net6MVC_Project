@@ -24,6 +24,29 @@ namespace BulkyBookWeb.Controllers
             return (IActionResult)View(objProductControllerList);
         }
 
+        //Get
+        public IActionResult ProductView(int id)
+        {
+            Product product = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id);
+            ProductVm productVm = new()
+            {
+                Product = product,
+                CategoryList = _unitOfWork.Category
+                .GetAll().Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }),
+                CoverTypeList = _unitOfWork.CoverType
+                .GetAll().Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }),
+            };
+            return View(productVm);
+        }
+
         //GET
         public IActionResult Upsert(int? id)
         {
@@ -49,7 +72,7 @@ namespace BulkyBookWeb.Controllers
             }
             else
             {
-                Product product = _unitOfWork.Product.GetFirstOrDefault(x=> x.Id == id);
+                Product product = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id);
                 ProductVm productVm = new()
                 {
                     Product = product,
@@ -67,7 +90,7 @@ namespace BulkyBookWeb.Controllers
                     }),
                 };
                 return View(productVm);
-            }    
+            }
         }
 
         //POST
@@ -78,14 +101,14 @@ namespace BulkyBookWeb.Controllers
             if (ModelState.IsValid)
             {
                 string wwwRootPath = _hostEnvironment.WebRootPath;
-                if (file != null)
+                if (file != null)//if there is a new file
                 {
                     //create method
                     string fileName = Guid.NewGuid().ToString();
                     var uploads = Path.Combine(wwwRootPath, @"images/products");
                     var extension = Path.GetExtension(file.FileName);
 
-                    if(obj.Product.ImageUrl != null)
+                    if (obj.Product.ImageUrl != null)
                     {
                         var oldImagePath = Path.Combine(wwwRootPath, obj.Product.ImageUrl.TrimStart('\\'));
                         if (System.IO.File.Exists(oldImagePath))
@@ -100,18 +123,25 @@ namespace BulkyBookWeb.Controllers
                     }
                     obj.Product.ImageUrl = @"\images\products\" + fileName + extension;
 
-                    if(obj.Product.Id == 0)
+                    if (obj.Product.Id == 0)//if the id is null the oject is been created
                     {
                         _unitOfWork.Product.Add(obj.Product);
                         TempData["Sucess"] = "Product created sucessefully";
                     }
-                    else
+                    else//if the id isnt null the object is been updated
                     {
-                        _unitOfWork.Product.Update(obj.Product);
-                        TempData["Sucess"] = "Product updataded sucessefully";
+                        var productFromDb = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == obj.Product.Id);
+
+                        //if the url is diferente from the db, the obj.img is been updatade,
+                        //so the outcome views has to show the new image
+                        if (obj.Product.ImageUrl != productFromDb.ImageUrl)
+                        {
+                            _unitOfWork.Product.Update(obj.Product);
+                            TempData["Sucess"] = "Product updataded sucessefully";
+                        }
                     }
                 }
-                else
+                else//if the update goes without a new image, get the older one and return to table view
                 {
                     obj.Product.ImageUrl = Request.Form["oldFile"];
                     _unitOfWork.Product.Update(obj.Product);
@@ -120,7 +150,26 @@ namespace BulkyBookWeb.Controllers
             }
 
             _unitOfWork.Save();
-            return (IActionResult)RedirectToAction("Index");
+
+            var productFromDbToReturn = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == obj.Product.Id);
+
+            ProductVm productVm = new()
+            {
+                Product = productFromDbToReturn,
+                CategoryList = _unitOfWork.Category
+                    .GetAll().Select(x => new SelectListItem
+                    {
+                        Text = x.Name,
+                        Value = x.Id.ToString()
+                    }),
+                CoverTypeList = _unitOfWork.CoverType
+                    .GetAll().Select(x => new SelectListItem
+                    {
+                        Text = x.Name,
+                        Value = x.Id.ToString()
+                    }),
+            };
+            return (IActionResult)RedirectToAction("ProductView", "Product", productVm.Product);
         }
 
         //GET

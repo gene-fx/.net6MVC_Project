@@ -35,7 +35,7 @@
 					<th>
 						<label class="text text-success">Price</label>
 					</th>
-					<th class="text-center" style="width:15%">
+					<th class="text-center" style="width:190px">
 						<label class="text text-success">Options</label>
 					</th>
 				</tr>
@@ -44,14 +44,21 @@
 				@foreach(var obj in Model)
 				{
 					<tr>
-						<td>@obj.Title</td>
-						<td>@obj.ISBN</td> 
-						<td>@obj.Author</td>
-						<td>@obj.Category.Name</td>
-						<td>@obj.Price</td>
+						<td><a asp-controller="Product" asp-action="ProductView" asp-route-id="@obj.Id"
+							style="text-decoration:none; color:white;">@obj.Title</a></td>
+						<td><a asp-controller="Product" asp-action="ProductView" asp-route-id="@obj.Id"
+							style="text-decoration:none; color:white;">@obj.ISBN</a></td>
+						<td><a asp-controller="Product" asp-action="ProductView" asp-route-id="@obj.Id"
+							style="text-decoration:none; color:white;">@obj.Author</a></td>
+						<td><a asp-controller="Product" asp-action="ProductView" asp-route-id="@obj.Id"
+							style="text-decoration:none; color:white;">@obj.Category.Name</a></td>						
+						<td><a asp-controller="Product" asp-action="ProductView" asp-route-id="@obj.Id"
+							style="text-decoration:none; color:white;">@obj.Price</a></td>		
 						<td class="text-center">
-							<a asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-secondary">Edit</a>
-							<a asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-danger">Delete</a>
+							<a asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" 
+							class="btn btn-secondary" style="width:80px">Edit</a>
+							<a asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" 
+							class="btn btn-danger" style="width:80px">Delete</a>
 						</td>
 					</tr>
 				}
