@@ -57,8 +57,7 @@
 						<td class="text-center">
 							<a asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" 
 							class="btn btn-secondary" style="width:80px">Edit</a>
-							<a asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" 
-							class="btn btn-danger" style="width:80px">Delete</a>
+							<a asp-controller="Product" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger" style="width:80px">Delete</a>
 						</td>
 					</tr>
 				}
