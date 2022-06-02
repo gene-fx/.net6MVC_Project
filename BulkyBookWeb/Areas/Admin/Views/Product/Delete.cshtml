@@ -10,14 +10,14 @@
 </style>
 
 <form method="post" asp-action="Delete" enctype="multipart/form-data">
-	<div class="row">
+	<div class="row  border-bottom">
+		<div class="row pb-1 mt-4">
+			<h2 class="text-success">Product View</h2>
+			<input asp-for="Product.Id" hidden/>
+			<hr />
+		</div>
 		<div class="col-10">
-			<div class="border-bottom p-3 mt-4 mb-4 row">
-				<div class="row pb-2">
-					<h2 class="text-success">Product View</h2>
-					<input asp-for="Product.Id" hidden/>
-					<hr />
-				</div>
+			<div class="p-3 mt-2 mb-4 row">
 				<div class="mb-3">
 					<label asp-for="Product.Title"></label>
 					<input asp-for="Product.Title" class="form-control" disabled/>
@@ -64,15 +64,17 @@
 				</div>
 
 				<div class="mb-3">
-					<button type="submit" style="width:150px; line-height: 0.8;" class="btn btn-danger btn-lg col-6">Delete</button>
+					<button type="submit" style="width:150px; line-height: 1.4;" class="btn btn-danger btn-lg col-6">Delete</button>
 					<a asp-controller="Product" asp-action="index" class="btn btn-outline-light btn-lg col-6" style="width:150px">Back to list</a>
 				</div>
 			</div>
 		</div>
-		<div class="col-2 pt-5 mt-lg-5">
+		<div class="col-2 p-3 mb-4 row">
+			<div class="mt-3">
 			<label class="mb-2">Image Preview</label>
 				<img src=@Model.Product.ImageUrl width="100%" style="border-radius:5px; border:1px solid white">		
-				<input asp-for="Product.ImageUrl" type="text" name="oldFile" id="oldFileHidden"/>		
+				<input asp-for="Product.ImageUrl" type="text" name="oldFile" id="oldFileHidden" hidden/>	
+			</div>
 		</div>	
 	</div>
 </form>
