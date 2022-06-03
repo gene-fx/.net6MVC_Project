@@ -64,7 +64,8 @@
 				</div>
 
 				<div class="mb-3">
-					<button type="submit" style="width:150px; line-height: 1.4;" class="btn btn-danger btn-lg col-6">Delete</button>
+					@*<button type="submit" style="width:150px; line-height: 1.4;" class="btn btn-danger btn-lg col-6">Delete</button>*@
+					<a class="btn btn-danger btn-lg me-1" style="width:150px; line-height: 1.4;" onclick="Delete('/Admin/Product/DeleteApi/@Model.Product.Id')">Delete</a>
 					<a asp-controller="Product" asp-action="index" class="btn btn-outline-light btn-lg col-6" style="width:150px">Back to list</a>
 				</div>
 			</div>

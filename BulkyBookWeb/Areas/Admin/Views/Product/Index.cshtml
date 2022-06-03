@@ -56,8 +56,9 @@
 							style="text-decoration:none; color:white;">@obj.Price</a></td>		
 						<td class="text-center">
 							<a asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" 
-							class="btn btn-secondary" style="width:80px">Edit</a>
-							<a asp-controller="Product" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger" style="width:80px">Delete</a>
+							class="btn btn-secondary me-1" style="width:80px; line-height:3">  <i class="bi bi-pencil-square"></i>  Edit</a>
+							<a class="btn btn-danger" style="width:80px;" 
+							onclick="Delete('/Admin/Product/DeleteApi/@obj.Id')"> <i class="bi bi-trash"></i> Delete</a>
 						</td>
 					</tr>
 				}

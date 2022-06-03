@@ -184,7 +184,6 @@ namespace BulkyBookWeb.Controllers
 
             if (obj == null)
             {
-                TempData["Error"] = "";
                 return NotFound();
             }
 
@@ -212,6 +211,8 @@ namespace BulkyBookWeb.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
+            
+
             Product obj = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id);
 
             var oldImagePath = Path.Combine(_hostEnvironment.WebRootPath, obj.ImageUrl.TrimStart('\\'));
@@ -257,8 +258,8 @@ namespace BulkyBookWeb.Controllers
 
             _unitOfWork.Product.Remove(ProductFromDb);
             _unitOfWork.Save();
-            TempData["Sucess"] = "";
-            return Json(new { success = true, message = "Delete Successful" });
+            TempData["Sucess"] = "Delete Successful";
+            return Json(new { success = true, message = "Delete Successful", href = "/Admin/Product/Index" });
 
         }
         #endregion

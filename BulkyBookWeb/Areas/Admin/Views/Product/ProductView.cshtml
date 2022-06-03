@@ -64,8 +64,9 @@
 				</div>
 
 				<div class="mb-3">
-					<a asp-controller="Product" asp-action="Upsert" asp-route-id="@Model.Product.Id" class="btn btn-outline-primary btn-lg col-6" style="width:150px; line-height: 0.8;">Update this product</a>
-					<a asp-controller="Product" asp-action="index" class="btn btn-outline-light btn-lg col-6" style="width:150px">Back to list</a>
+					<a asp-controller="Product" asp-action="Upsert" asp-route-id="@Model.Product.Id" class="btn btn-outline-primary btn-lg col-6 me-1" style="width:150px; line-height: 0.7;">Update this product</a>
+					<a asp-controller="Product" asp-action="index" class="btn btn-outline-light btn-lg col-6 me-1" style="width:150px">Back to list</a>
+					<a class="btn btn-danger btn-lg me-1" style="width:150px; line-height: 1.4;" onclick="Delete('/Admin/Product/DeleteApi/@Model.Product.Id')">Delete</a>
 				</div>
 			</div>
 		</div>
