@@ -80,7 +80,7 @@
 
 			<div class="col-12">
 				<button type="submit" onclick="return ValidateInput()" 
-					class="btn btn-primary btn-lg col-6" style="width:150px">Create</button>
+					class="btn btn-primary btn-lg col-6" style="width:150px" id="botaoUp">Create</button>
 				<a asp-controller="Product" asp-action="index" 
 					class="btn btn-outline-light btn-lg col-6" style="width:150px">Back to list</a>
 			</div>
@@ -156,7 +156,7 @@
 					</div>
 
 					<div class="mb-3">
-						<button type="submit" class="btn btn-primary btn-lg col-6" style="width:150px">Update</button>
+						<button type="submit" class="btn btn-primary btn-lg col-6" style="width:150px" id="botaoUp">Update</button>
 						<a asp-controller="Product" asp-action="index" class="btn btn-outline-light btn-lg col-6" style="width:150px">Back to list</a>
 					</div>
 				</div>
@@ -177,6 +177,19 @@
 	<partial name="_ValidationScriptsPartial" />
 	}
 		<script>
+			console.log(document.getElementById("botaoUp"));
+		</script>
+
+
+		<script>
+			tinymce.init({
+			  selector: 'textarea',
+			  toolbar_mode: 'floating',
+			});
+		</script>
+
+
+		<script>
 			function ValidateInput()
 			{
 				if (document.getElementById("uploadBox").value == "") 
@@ -192,15 +205,5 @@
 		</script>
 	}
 
-							
-@*				<div class="row">
-					<div>
-						<label>Image Preview</label>
-						<img src=@Model.Product.ImageUrl class="form-control img-view">
-						<label asp-for="Product.ImageUrl"></label>
-						<input asp-for="Product.ImageUrl" type="file" name="file" class="form-control" id="uploadBox"/>
-						<input asp-for="Product.ImageUrl" type="text" name="oldFile" id="oldFileHidden" hidden/>
-					</div>
-				</div>
-*@
+						
 				

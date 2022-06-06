@@ -96,6 +96,7 @@ namespace BulkyBookWeb.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RequestFormLimits(ValueCountLimit = int.MaxValue)]
         public IActionResult Upsert(ProductVm obj, IFormFile? file)
         {
             if (ModelState.IsValid)
@@ -149,7 +150,7 @@ namespace BulkyBookWeb.Controllers
                 }
             }
 
-            _unitOfWork.Save();
+            _unitOfWork.Save();//save then create a productviewmodel to pass the page
 
             var productFromDbToReturn = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == obj.Product.Id);
 

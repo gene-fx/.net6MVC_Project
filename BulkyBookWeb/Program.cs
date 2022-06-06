@@ -1,7 +1,7 @@
 using BulkyBook.DataAccess;
 using BulkyBook.DataAccess.Repository;
 using BulkyBook.DataAccess.Repository.IRepository;
-using BulkyBook.Models;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefautConnection")));
 builder.Services.AddRazorPages();
+builder.Services.Configure<FormOptions>(x => x.ValueCountLimit = int.MaxValue);
 
 builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
 
