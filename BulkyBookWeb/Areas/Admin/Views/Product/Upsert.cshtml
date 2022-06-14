@@ -9,54 +9,54 @@
 	}
 </style>
 
-<form method="post" asp-action="Upsert" enctype="multipart/form-data">
-	@if (Model.Product.Id == 0)
+<form method="post" asp-action="Upsert" enctype="multipart/form-data" id="form">
+	@if (Model.Product.Id == 0) @*CREATE page*@
 	{
 		<div class="border-bottom p-3 mt-4 mb-4 row">
 			<div class="row pb-2">
 				<h2 class="text-success">Create Product</h2>
-				<input asp-for="Product.Id" hidden/>
+				<input asp-for="Product.Id" id="id" hidden/>
 				<hr />
 			</div>
 			<div asp-validation-summary="All" class="text-danger"></div>
 			<div class="mb-3">
 				<label asp-for="Product.Title"></label>
-				<input asp-for="Product.Title" class="form-control" />
+				<input asp-for="Product.Title" class="form-control" id="title"/>
 				<span asp-validation-for="Product.Title" class="text-danger"></span>
 			</div>
 			<div class="mb-3">
 				<label asp-for="Product.Description"></label>
-				<textarea asp-for="Product.Description" rows="3" class="form-control"></textarea>
+				<textarea asp-for="Product.Description" rows="3" class="form-control" id="description"></textarea>
 				<span asp-validation-for="Product.Description" class="text-danger"></span> 
 			</div>
 			<div class="mb-3 col-6">
 				<label asp-for="Product.ISBN"></label>
-				<input asp-for="Product.ISBN" class="form-control"/>
+				<input asp-for="Product.ISBN" class="form-control" id="isbn"/>
 				<span asp-validation-for="Product.ISBN" class="text-danger"></span>
 			</div>
 			<div class="mb-3 col-6">
 				<label asp-for="Product.Author"></label>
-				<input asp-for="Product.Author" class="form-control"/>
+				<input asp-for="Product.Author" class="form-control" id="author"/>
 				<span asp-validation-for="Product.Author" class="text-danger"></span>
 			</div>
 			<div class="mb-3 col-6">
 				<label asp-for="Product.ListPrice"></label>
-				<input asp-for="Product.ListPrice" class="form-control"/>
+				<input asp-for="Product.ListPrice" class="form-control" id="listprice"/>
 				<span asp-validation-for="Product.ListPrice" class="text-danger"></span>
 			</div>
 			<div class="mb-3 col-6">
 				<label asp-for="Product.Price"></label>
-				<input asp-for="Product.Price" class="form-control"/>
+				<input asp-for="Product.Price" class="form-control" id="price"/>
 				<span asp-validation-for="Product.Price" class="text-danger"></span>
 			</div>
 			<div class="mb-3 col-6">
 				<label asp-for="Product.Price50"></label>
-				<input asp-for="Product.Price50" class="form-control"/>
+				<input asp-for="Product.Price50" class="form-control" id="price50"/>
 				<span asp-validation-for="Product.Price50" class="text-danger"></span>
 			</div>
 			<div class="mb-3 col-6">
 				<label asp-for="Product.Price100"></label>
-				<input asp-for="Product.Price100" class="form-control"/>
+				<input asp-for="Product.Price100" class="form-control" id="price100"/>
 				<span asp-validation-for="Product.Price100" class="text-danger"></span>
 			</div>
 			<div class="mb-3">
@@ -65,14 +65,14 @@
 			</div>
 			<div class="mb-3 col-6">
 				<label asp-for="Product.CategoryId"></label>
-				<select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-control">
+				<select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-control" id="categoryid">
 					<option disabled selected>--Select Category--</option>
 				</select>
 				<span asp-validation-for="Product.CategoryId" class="text-danger"></span>
 			</div>
 			<div class="mb-3 col-6">
 				<label asp-for="Product.CoverTypeId"></label>
-				<select asp-for="Product.CoverTypeId" asp-items="@Model.CoverTypeList" class="form-control">
+				<select asp-for="Product.CoverTypeId" asp-items="@Model.CoverTypeList" class="form-control" id="covertypeid">
 					<option deseabled selected>--Select Coter Type--</option>
 				</select>
 				<span asp-validation-for="Product.CoverTypeId" class="text-danger"></span>
@@ -86,54 +86,54 @@
 			</div>
 		</div>
 	}
-	else
+	else @*UPDATE page*@
 	{
 		<div class="row  border-bottom">
 			<div class="row pb-1 mt-4">
 				<h2 class="text-success">Edit Product</h2>
-				<input asp-for="Product.Id" hidden/>
+				<input asp-for="Product.Id" id="id" hidden/>
 				<hr />
 			</div>
 			<div class="col-10">
 				<div class="p-3 mt-2 mb-4 row">
 					<div class="mb-3">
 						<label asp-for="Product.Title"></label>
-						<input asp-for="Product.Title" class="form-control" />
+						<input asp-for="Product.Title" class="form-control" id="title"/>
 						<span asp-validation-for="Product.Title" class="text-danger"></span>
 					</div>
 					<div class="mb-3">
 						<label asp-for="Product.Description"></label>
-						<textarea asp-for="Product.Description" rows="3" class="form-control"></textarea>
+						<textarea asp-for="Product.Description" rows="3" class="form-control" id="description"></textarea>
 						<span asp-validation-for="Product.Description" class="text-danger"></span> 
 					</div>
 					<div class="mb-3 col-6">
 						<label asp-for="Product.ISBN"></label>
-						<input asp-for="Product.ISBN" class="form-control"/>
+						<input asp-for="Product.ISBN" class="form-control" id="isbn"/>
 						<span asp-validation-for="Product.ISBN" class="text-danger"></span>
 					</div>
 					<div class="mb-3 col-6">
 						<label asp-for="Product.Author"></label>
-						<input asp-for="Product.Author" class="form-control"/>
+						<input asp-for="Product.Author" class="form-control" id="author"/>
 						<span asp-validation-for="Product.Author" class="text-danger"></span>
 					</div>
 					<div class="mb-3 col-6">
 						<label asp-for="Product.ListPrice"></label>
-						<input asp-for="Product.ListPrice" class="form-control"/>
+						<input asp-for="Product.ListPrice" class="form-control" id="listprice"/>
 						<span asp-validation-for="Product.ListPrice" class="text-danger"></span>
 					</div>
 					<div class="mb-3 col-6">
 						<label asp-for="Product.Price"></label>
-						<input asp-for="Product.Price" class="form-control"/>
+						<input asp-for="Product.Price" class="form-control" id="price"/>
 						<span asp-validation-for="Product.Price" class="text-danger"></span>
 					</div>
 					<div class="mb-3 col-6">
 						<label asp-for="Product.Price50"></label>
-						<input asp-for="Product.Price50" class="form-control"/>
+						<input asp-for="Product.Price50" class="form-control" id="price50"/>
 						<span asp-validation-for="Product.Price50" class="text-danger"></span>
 					</div>
 					<div class="mb-3 col-6">
 						<label asp-for="Product.Price100"></label>
-						<input asp-for="Product.Price100" class="form-control"/>
+						<input asp-for="Product.Price100" class="form-control" id="price100"/>
 						<span asp-validation-for="Product.Price100" class="text-danger"></span>
 					</div>
 					<div class="mb-3">
@@ -142,14 +142,14 @@
 					</div>
 					<div class="mb-3 col-6">
 						<label asp-for="Product.CategoryId"></label>
-						<select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-control">
+						<select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-control" id="categoryid">
 							<option disabled selected>--Select Category--</option>
 						</select>
 						<span asp-validation-for="Product.CategoryId" class="text-danger"></span>
 					</div>
 					<div class="mb-3 col-6">
 						<label asp-for="Product.CoverTypeId"></label>
-						<select asp-for="Product.CoverTypeId" asp-items="@Model.CoverTypeList" class="form-control">
+						<select asp-for="Product.CoverTypeId" asp-items="@Model.CoverTypeList" class="form-control" id="covertypeid">
 							<option deseabled selected>--Select Coter Type--</option>
 						</select>
 						<span asp-validation-for="Product.CoverTypeId" class="text-danger"></span>
@@ -158,6 +158,8 @@
 					<div class="mb-3">
 						<button type="submit" class="btn btn-primary btn-lg col-6" style="width:150px" id="botaoUp">Update</button>
 						<a asp-controller="Product" asp-action="index" class="btn btn-outline-light btn-lg col-6" style="width:150px">Back to list</a>
+						<a class="btn btn-danger" style="width:80px;" 
+							onclick="sendPost()"> <i class="bi bi-trash"></i></a>
 					</div>
 				</div>
 			</div>
@@ -177,7 +179,48 @@
 	<partial name="_ValidationScriptsPartial" />
 	}
 		<script>
-			console.log(document.getElementById("botaoUp"));
+			function sendPost() 
+			{
+                var Id = document.getElementById("id").value;
+				var Title = document.getElementById("title").value;
+				var Isbn = document.getElementById("isbn").value;
+				var Description = document.getElementById("description").value;
+				var Author = document.getElementById("author").value;
+				var ListPrice = document.getElementById("listprice").value;
+				var Price = document.getElementById("price").value;
+				var Price50 = document.getElementById("price50").value;
+				var Price100 = document.getElementById("price100").value;
+				var ImgUrl = document.getElementById("oldFileHidden").value;
+                $.ajax({
+					type: "POST",
+					url: "@Url.Action("PostApi")",
+					dataType: "json",
+                    data: {
+                        id: Id,
+						title: Title,
+						isbn: Isbn,
+						description: Description,
+                        author: Author,
+						listPrice: ListPrice,
+						price: Price,
+						price50: Price50,
+						price100: Price100,
+						imgUrl: ImgUrl
+					},
+					//contentType: "multipart/form-data, charset=UTF-8",
+                    success: function(data) {
+						if (data.success) {
+							toastr.success(data.message);
+							$(location).attr('href', data.href);
+							console.log("Entrou no if success");
+						}
+						else {
+							toastr.error(data.message);
+							console.log("Entrou no if error");
+						}
+					}
+				});
+			}
 		</script>
 
 

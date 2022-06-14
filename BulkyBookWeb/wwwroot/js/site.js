@@ -24,7 +24,7 @@ function Delete(url)
 						$(location).attr('href', data.href);
 					}
 					else {
-						toatr.error(data.message);
+						toastr.error(data.message);
 					}
 				}
 			})

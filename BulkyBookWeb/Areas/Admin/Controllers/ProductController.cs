@@ -3,6 +3,7 @@ using BulkyBook.Models;
 using BulkyBook.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 namespace BulkyBookWeb.Controllers
 {
@@ -101,7 +102,7 @@ namespace BulkyBookWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string wwwRootPath = _hostEnvironment.WebRootPath;//get the webrootpath to this var
                 if (file != null)//if there is a new file
                 {
                     //create method
@@ -262,6 +263,23 @@ namespace BulkyBookWeb.Controllers
             TempData["Sucess"] = "Delete Successful";
             return Json(new { success = true, message = "Delete Successful", href = "/Admin/Product/Index" });
 
+        }
+
+        [HttpPost]
+        public JsonResult PostApi(string id, string tile, string isbn,
+            string description, string author, string listPrice,
+            string price, string price50, string price100, string imgUrl, IFormFile? img)
+        {
+            if (id != null)
+            {
+                TempData["success"] = "success";
+                return Json(new { success = true, message = "Update Successful" });
+            }
+            else
+            {
+                TempData["error"] = "error";
+                return Json(new { success = false, message = "Update Unsuccessful" });
+            }
         }
         #endregion
 
