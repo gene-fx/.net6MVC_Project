@@ -33,7 +33,7 @@ namespace BulkyBook.DataAccess.Repository
             {
                 foreach(var property in includeProperties.Split(new char[]{ ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    query = query.Include(includeProperties);
+                    query = query.Include(property);
                 }
             }
             return query.AsNoTracking().ToList();
@@ -44,11 +44,12 @@ namespace BulkyBook.DataAccess.Repository
             IQueryable<T> query = dbSet;
 
             query = query.Where(filter);
+
             if (includeProperties != null)
             {
                 foreach (var property in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    query = query.Include(includeProperties);
+                    query = query.Include(property);
                 }
             }
 

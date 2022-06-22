@@ -25,34 +25,11 @@ namespace BulkyBookWeb.Controllers
             return (IActionResult)View(objProductControllerList);
         }
 
-        //Get
-        public IActionResult ProductView(int id)
-        {
-            Product product = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id);
-            ProductVm productVm = new()
-            {
-                Product = product,
-                CategoryList = _unitOfWork.Category
-                .GetAll().Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                }),
-                CoverTypeList = _unitOfWork.CoverType
-                .GetAll().Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                }),
-            };
-            return View(productVm);
-        }
-
         //GET
         public IActionResult Upsert(int? id)
         {
-            if (id == null || id == 0)
-            {
+            if (id == null || id == 0) //test if the product already exists, if not it constructs the category and covertype lists
+            {                          //to display as a dropdown menu 
                 ProductVm productVm = new()
                 {
                     Product = new(),
@@ -71,7 +48,7 @@ namespace BulkyBookWeb.Controllers
                 };
                 return View(productVm);
             }
-            else
+            else//if the product already exists this method search for it, to build a ViewModel of it.
             {
                 Product product = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id);
                 ProductVm productVm = new()
@@ -110,7 +87,7 @@ namespace BulkyBookWeb.Controllers
                     var uploads = Path.Combine(wwwRootPath, @"images/products");
                     var extension = Path.GetExtension(file.FileName);
 
-                    if (obj.Product.ImageUrl != null)
+                    if (obj.Product.ImageUrl != null) //For erase the oder image, in case of adding a new one
                     {
                         var oldImagePath = Path.Combine(wwwRootPath, obj.Product.ImageUrl.TrimStart('\\'));
                         if (System.IO.File.Exists(oldImagePath))
@@ -171,7 +148,7 @@ namespace BulkyBookWeb.Controllers
                         Value = x.Id.ToString()
                     }),
             };
-            return (IActionResult)RedirectToAction("ProductView", "Product", productVm.Product);
+            return (IActionResult)RedirectToAction("Index", "Home", new { Area = "Customer" });
         }
 
         //GET
@@ -273,7 +250,7 @@ namespace BulkyBookWeb.Controllers
             if (id != null)
             {
                 TempData["success"] = "success";
-                return Json(new { success = true, message = "Update Successful" });
+                return Json(new { success = true, message = "Update Successful", href = "/Admin/Product/Index" });
             }
             else
             {

@@ -210,13 +210,12 @@
 					//contentType: "multipart/form-data, charset=UTF-8",
                     success: function(data) {
 						if (data.success) {
-							toastr.success(data.message);
 							$(location).attr('href', data.href);
-							console.log("Entrou no if success");
+							@TempData["success"] = "success";
+							toastr.success(data.message);							
 						}
 						else {
 							toastr.error(data.message);
-							console.log("Entrou no if error");
 						}
 					}
 				});

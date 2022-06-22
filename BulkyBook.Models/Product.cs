@@ -27,6 +27,7 @@ namespace BulkyBook.Models
         [Required]
         [Range(1, 10000)]
         [Display(Name ="List Price")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public double ListPrice { get; set; }
 
         [Required]

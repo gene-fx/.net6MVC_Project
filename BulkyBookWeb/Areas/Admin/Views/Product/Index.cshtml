@@ -44,15 +44,15 @@
 				@foreach(var obj in Model)
 				{
 					<tr>
-						<td><a asp-controller="Product" asp-action="ProductView" asp-route-id="@obj.Id"
+						<td><a asp-area="Customer" asp-controller="Home" asp-action="ProductView" asp-route-id="@obj.Id"
 							style="text-decoration:none; color:white;">@obj.Title</a></td>
-						<td><a asp-controller="Product" asp-action="ProductView" asp-route-id="@obj.Id"
+						<td><a asp-area="Customer" asp-controller="Home" asp-action="ProductView" asp-route-id="@obj.Id"
 							style="text-decoration:none; color:white;">@obj.ISBN</a></td>
-						<td><a asp-controller="Product" asp-action="ProductView" asp-route-id="@obj.Id"
+						<td><a asp-area="Customer" asp-controller="Home" asp-action="ProductView" asp-route-id="@obj.Id"
 							style="text-decoration:none; color:white;">@obj.Author</a></td>
-						<td><a asp-controller="Product" asp-action="ProductView" asp-route-id="@obj.Id"
+						<td><a asp-area="Customer" asp-controller="Home" asp-action="ProductView" asp-route-id="@obj.Id"
 							style="text-decoration:none; color:white;">@obj.Category.Name</a></td>						
-						<td><a asp-controller="Product" asp-action="ProductView" asp-route-id="@obj.Id"
+						<td><a asp-area="Customer" asp-controller="Home" asp-action="ProductView" asp-route-id="@obj.Id"
 							style="text-decoration:none; color:white;">@obj.Price</a></td>		
 						<td class="text-center">
 							<a asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" 
