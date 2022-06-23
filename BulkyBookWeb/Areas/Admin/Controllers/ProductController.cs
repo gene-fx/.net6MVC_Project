@@ -148,7 +148,7 @@ namespace BulkyBookWeb.Controllers
                         Value = x.Id.ToString()
                     }),
             };
-            return (IActionResult)RedirectToAction("Index", "Home", new { Area = "Customer" });
+            return (IActionResult)RedirectToAction("ProductView", "Home", new { productVm.Product.Id, Area = "Admin", model = productVm });
         }
 
         //GET

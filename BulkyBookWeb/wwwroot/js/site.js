@@ -8,10 +8,13 @@ function Delete(url)
 	Swal.fire({
 		title: 'Are you sure?',
 		text: "You won't be able to revert this!",
-		icon: 'warning',
+		color: '#fff',
+		background: '#000000',
+		icon: 'question',
+		iconColor: '#e84c3d',
 		showCancelButton: true,
-		confirmButtonColor: '#3085d6',
-		cancelButtonColor: '#d33',
+		confirmButtonColor: '#365c7c',
+		cancelButtonColor: '#e84c3d',
 		confirmButtonText: 'Yes, delete it!'
 	}).then((result) => {
 		if (result.isConfirmed) {
