@@ -21,7 +21,7 @@ namespace BulkyBookWeb.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> objProductControllerList = _unitOfWork.Product.GetAll(includeProperties: "Category");
+            IEnumerable<Product> objProductControllerList = _unitOfWork.Product.GetAll(includeProperties: "Category,CoverType");
             return (IActionResult)View(objProductControllerList);
         }
 
@@ -80,15 +80,19 @@ namespace BulkyBookWeb.Controllers
             if (ModelState.IsValid)
             {
                 string wwwRootPath = _hostEnvironment.WebRootPath;//get the webrootpath to this var
-                if (file != null)//if there is a new file
+
+                if (file != null)//if there is a new file for upload
                 {
-                    //create method
+                    //create a file name for the image that has been upldoaded
                     string fileName = Guid.NewGuid().ToString();
+                    //combine the webrootpah with the product images folder
                     var uploads = Path.Combine(wwwRootPath, @"images/products");
+                    //extracts the file that has been uploaded extension
                     var extension = Path.GetExtension(file.FileName);
 
-                    if (obj.Product.ImageUrl != null) //For erase the oder image, in case of adding a new one
-                    {
+                    //For erase the oder image, in case of adding a new one
+                    if (obj.Product.ImageUrl != null) // it checks if the object has a img url
+                    {//if its true means that the older image has to be erased 
                         var oldImagePath = Path.Combine(wwwRootPath, obj.Product.ImageUrl.TrimStart('\\'));
                         if (System.IO.File.Exists(oldImagePath))
                         {
@@ -107,11 +111,12 @@ namespace BulkyBookWeb.Controllers
                         _unitOfWork.Product.Add(obj.Product);
                         TempData["Sucess"] = "Product created sucessefully";
                     }
-                    else//if the id isnt null the object is been updated
+                    else//if the id isnt null the object is been updated with a new image
                     {
                         var productFromDb = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == obj.Product.Id);
 
                         //if the url is diferente from the db, the obj.img is been updatade,
+
                         //so the outcome views has to show the new image
                         if (obj.Product.ImageUrl != productFromDb.ImageUrl)
                         {
@@ -120,10 +125,10 @@ namespace BulkyBookWeb.Controllers
                         }
                     }
                 }
-                else//if the update goes without a new image, get the older one and return to table view
+                else//if the update goes without a new image, it get the older one url
                 {
-                    obj.Product.ImageUrl = Request.Form["oldFile"];
-                    _unitOfWork.Product.Update(obj.Product);
+                    obj.Product.ImageUrl = Request.Form["oldFile"]; //geting from the html the already existent url to avoid eraese it, and passing to the obj
+                    _unitOfWork.Product.Update(obj.Product);//that has been updated
                     TempData["Sucess"] = "Product updataded sucessefully";
                 }
             }
@@ -132,6 +137,7 @@ namespace BulkyBookWeb.Controllers
 
             var productFromDbToReturn = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == obj.Product.Id);
 
+            //mounting the product view model with the updated/created obj to pass as a model to the view
             ProductVm productVm = new()
             {
                 Product = productFromDbToReturn,
@@ -148,7 +154,12 @@ namespace BulkyBookWeb.Controllers
                         Value = x.Id.ToString()
                     }),
             };
-            return (IActionResult)RedirectToAction("ProductView", "Home", new { productVm.Product.Id, Area = "Admin", model = productVm });
+
+            //redirect to another area controller
+            //passing the product id to fill the controller parameter
+            return (IActionResult)RedirectToAction("ProductView" /*action*/,
+                "Home" /*controller*/, new { area = "Customer", productVm.Product.Id } /*area + obj*/); 
+            
         }
 
         //GET

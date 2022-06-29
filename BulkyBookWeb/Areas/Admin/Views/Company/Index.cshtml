@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Company>
+@{
+	ViewData["Title"] = "Product";
+}
+
+<div class="container p-3">
+	<div class="row pt-4">
+		<div class="col-6">
+			<h2 class="text-success">Product List</h2>
+		</div>
+		<div class="col-6 text-end">
+			<a asp-area="Admin" asp-controller="Company" asp-action="Upsert" type="button" class="btn btn-primary btn-lg">
+				<i class="bi bi-plus-square"></i> &nbsp; New Company</a>
+		</div>
+	</div>
+</div>
+
+<div class="container p-2">
+	<div class="">
+		<table class="table table-bordered table-striped table-secondary" style="width:100%">
+			<thead>
+				<tr>
+					<th>
+						<label class="text text-success">Name</label>
+					</th>
+					<th>
+						<label class="text text-success">Street Address</label>
+					</th>
+					<th>
+						<label class="text text-success">City</label>
+					</th>
+					<th>
+						<label class="text text-success">State</label>
+					</th>
+					<th>
+						<label class="text text-success">Phone Number</label>
+					</th>
+					<th class="text-center" style="width:190px">
+						<label class="text text-success">Options</label>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach(var obj in Model)
+				{
+					<tr>
+						<td><a asp-area="Admin" asp-controller="Company" asp-action="CompanyDetails" asp-route-id="@obj.Id"
+							style="text-decoration:none; color:white;">@obj.Name</a></td>
+						<td><a asp-area="Admin" asp-controller="Company" asp-action="CompanyDetails" asp-route-id="@obj.Id"
+							style="text-decoration:none; color:white;">@obj.StreetAddress</a></td>
+						<td><a asp-area="Admin" asp-controller="Company" asp-action="CompanyDetails" asp-route-id="@obj.Id"
+							style="text-decoration:none; color:white;">@obj.City</a></td>
+						<td><a asp-area="Admin" asp-controller="Company" asp-action="CompanyDetails" asp-route-id="@obj.Id"
+							style="text-decoration:none; color:white;">@obj.State</a></td>						
+						<td><a asp-area="Admin" asp-controller="Company" asp-action="CompanyDetails" asp-route-id="@obj.Id"
+							style="text-decoration:none; color:white;">@obj.PhoneNumber</a></td>		
+						<td class="text-center">
+							<a asp-controller="Company" asp-action="Upsert" asp-route-id="@obj.Id" 
+							class="btn btn-secondary me-1" style="width:80px; line-height:3"><i class="bi bi-pencil-square"></i>Edit</a>
+							<a class="btn btn-danger" style="width:80px;" 
+							onclick="Delete('Admin/Company/DeleteApi/@obj.Id')"><i class="bi bi-trash"></i>Delete</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
