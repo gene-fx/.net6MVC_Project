@@ -63,7 +63,7 @@ namespace BulkyBookWeb.Controllers
 
                 _unitOfWork.Save();
             }
-            return View(obj);
+            return (IActionResult)RedirectToAction("Index");
         }
 
         //POST
@@ -98,14 +98,13 @@ namespace BulkyBookWeb.Controllers
             if (companyFromDb == null)
             {
                 TempData["Error"] = "";
-                return Json(new { success = false, message = "Error while deleting" });
+                return Json(new { success = false, message = "Error while deleting", href = "/Admin/Company/Index" });
             }
 
             _unitOfWork.Company.Remove(companyFromDb);
             _unitOfWork.Save();
             TempData["Sucess"] = "Delete Successful";
-            return Json(new { success = true, message = "Delete Successful", href = "/Admin/Product/Index" });
-
+            return Json(new { success = true, message = "Delete Successful", href = "/Admin/Company/Index" });
         }
 
         //[HttpPost]
