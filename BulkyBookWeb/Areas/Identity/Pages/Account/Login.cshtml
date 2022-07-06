@@ -4,13 +4,16 @@
 @{
     ViewData["Title"] = "Log in";
 }
-
-<h1>@ViewData["Title"]</h1>
+<div class="row mt-4">
+    <h1>@ViewData["Title"]</h1>
+</div>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6 mb-3">
         <section>
             <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
+                <div style="position:relative; top:10px">
+                    <h2 style="color:#4573a1">Use a local account to log in.</h2>
+                </div>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-floating">
@@ -50,7 +53,9 @@
     </div>
     <div class="col-md-6 col-md-offset-2">
         <section>
-            <h3>Use another service to log in.</h3>
+            <div class="row" style="height:47px">
+                <h2 style="position:relative; top:10px; color:#4573a1">Use another service to log in.</h2>
+            </div>
             <hr />
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)

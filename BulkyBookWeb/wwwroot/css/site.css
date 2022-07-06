@@ -1,18 +1,51 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+
+/*Register page breakpoints*/
+
+@media (min-width: 768px) {
+    .register-user-form {
+        width: 100%;
+    }
+
+    .rigister-user-others {
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .register-user-form {
+        width: 50%;
+    }
+
+    .rigister-user-others {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .register-user-form {
+        width: 50%;
+    }
+
+    .rigister-user-others {
+        width: 50%;
+    }
 }
