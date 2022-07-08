@@ -30,17 +30,7 @@ body {
     }
 }
 
-@media (min-width: 992px) {
-    .register-user-form {
-        width: 50%;
-    }
-
-    .rigister-user-others {
-        width: 50%;
-    }
-}
-
-@media (min-width: 1200px) {
+@media (min-width: 1400px) {
     .register-user-form {
         width: 50%;
     }
