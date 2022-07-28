@@ -1,4 +1,4 @@
-﻿@if (TempData["Sucess"] != null)
+﻿@if (TempData["Success"] != null)
 {
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>	
@@ -9,7 +9,7 @@
 			"progressBar": true,
 			"positionClass": "toast-top-center"
 		}
-		toastr.success('@TempData["Sucess"]');
+		toastr.success('@TempData["Success"]');
 	</script>
 }
 
@@ -25,6 +25,52 @@
 			"positionClass": "toast-top-center"
 		}
 		toastr.error('@TempData["Error"]');
+	</script>
+}
+
+@if (TempData["Item removed"] != null)
+{
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+	<script type="text/javascript">
+		toastr.options = {
+			"showDuration": "500",
+			"timeOut": "1600",
+			"progressBar": true,
+			"positionClass": "toast-top-center"
+		}
+		toastr.error('@TempData["Item removed"]');
+	</script>
+}
+
+@if (TempData["Removed"] != null)
+{
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+	<script type="text/javascript">
+		toastr.options = {
+			"showDuration": "200",
+			"timeOut": "1000",
+			"positionClass": "toast-top-center"
+		}
+		toastr.warning('@TempData["Removed"]');
+	</script>
+}
+
+@if (TempData["Added"] != null)
+{
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>	
+
+	<script type="text/javascript">
+		toastr.options = {
+			"showDuration": "200",
+			"timeOut": "1000",
+			"positionClass": "toast-top-center"
+		}
+		toastr.success('@TempData["Added"]');
 	</script>
 }
 

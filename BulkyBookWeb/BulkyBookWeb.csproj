@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\images\products\08d0f1b1-8f38-45c8-be7e-b993f12e52d1.jpg" />
+    <Content Remove="wwwroot\images\products\228cf307-8e11-4dd0-a087-638fb8402ba0.jpg" />
+    <Content Remove="wwwroot\images\products\30241794-068a-4f8f-bc4d-7a8c9d30d360.jpg" />
+    <Content Remove="wwwroot\images\products\967cb576-c0c9-447b-870d-77acc2eedf19.jpg" />
+    <Content Remove="wwwroot\images\products\cab66de8-9e26-495d-a1ee-57fbbc1b9d89.jpg" />
+    <Content Remove="wwwroot\images\products\e9787043-014b-4b5a-a5aa-26f5133ef116.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="jQuery" Version="3.6.0" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.6" />

@@ -26,7 +26,7 @@
 			</div>
 			<div class="mb-3">
 				<label asp-for="Product.Description"></label>
-				<textarea asp-for="Product.Description" rows="3" class="form-control" id="description"></textarea>
+				<textarea rows="3" class="form-control" id="formDescription">@Html.Raw(Model.Product.Description)</textarea>
 				<span asp-validation-for="Product.Description" class="text-danger"></span> 
 			</div>
 			<div class="mb-3 col-6">
@@ -83,6 +83,8 @@
 					class="btn btn-primary btn-lg col-6" style="width:150px" id="botaoUp">Create</button>
 				<a asp-controller="Product" asp-action="index" 
 					class="btn btn-outline-light btn-lg col-6" style="width:150px">Back to list</a>
+											<a class="btn btn-success" style="width:80px;" 
+							onclick="sendPost()"> <i class="bi bi-trash"></i></a>
 			</div>
 		</div>
 	}
@@ -103,7 +105,7 @@
 					</div>
 					<div class="mb-3">
 						<label asp-for="Product.Description"></label>
-						<textarea asp-for="Product.Description" rows="3" class="form-control" id="description"></textarea>
+						<textarea rows="3" class="form-control" id="formDescription">@Html.Raw(Model.Product.Description)</textarea>
 						<span asp-validation-for="Product.Description" class="text-danger"></span> 
 					</div>
 					<div class="mb-3 col-6">
@@ -158,7 +160,7 @@
 					<div class="mb-3">
 						<button type="submit" class="btn btn-primary btn-lg col-6" style="width:150px" id="botaoUp">Update</button>
 						<a asp-controller="Product" asp-action="index" class="btn btn-outline-light btn-lg col-6" style="width:150px">Back to list</a>
-						<a class="btn btn-danger" style="width:80px;" 
+						<a class="btn btn-success" style="width:80px;" 
 							onclick="sendPost()"> <i class="bi bi-trash"></i></a>
 					</div>
 				</div>
@@ -167,7 +169,7 @@
 				<div class="mt-3">
 				<label class="mb-2">Image Preview</label>
 					<img src=@Model.Product.ImageUrl width="100%" style="border-radius:5px; border:1px solid white">		
-					<input asp-for="Product.ImageUrl" type="text" name="oldFile" id="oldFileHidden" hidden/>	
+					<input asp-for="Product.ImageUrl" type="text" name="oldFile" id="oldImgUrl" hidden/>	
 				</div>
 			</div>	
 		</div>
@@ -181,38 +183,52 @@
 		<script>
 			function sendPost() 
 			{
-                var Id = document.getElementById("id").value;
-				var Title = document.getElementById("title").value;
-				var Isbn = document.getElementById("isbn").value;
-				var Description = document.getElementById("description").value;
-				var Author = document.getElementById("author").value;
-				var ListPrice = document.getElementById("listprice").value;
-				var Price = document.getElementById("price").value;
-				var Price50 = document.getElementById("price50").value;
-				var Price100 = document.getElementById("price100").value;
-				var ImgUrl = document.getElementById("oldFileHidden").value;
+    //            var Id = document.getElementById("id").value;
+				//var Title = document.getElementById("title").value;
+				//var Isbn = document.getElementById("isbn").value;
+				//var Description = document.getElementById("description").value;
+				//var Author = document.getElementById("author").value;
+				//var ListPrice = document.getElementById("listprice").value;
+				//var Price = document.getElementById("price").value;
+				//var Price50 = document.getElementById("price50").value;
+				//var Price100 = document.getElementById("price100").value;
+    //            if (document.getElementById("oldImgUrl") !== null) {
+				//	var ImgUrl = document.getElementById("oldImgUrl").value;
+				//}
+                var Obj = new FormData();
+                var fileInput = document.getElementById("uploadBox");
+                var desc = tinymce.get('formDescription').getContent();
+
+                console.log(desc);
+
+                Obj.append('id', document.getElementById("id").value);
+                Obj.append('title', document.getElementById("title").value);
+				Obj.append('isbn', document.getElementById("isbn").value);
+				Obj.append('description', desc);
+				Obj.append('author', document.getElementById("author").value);
+				Obj.append('listprice', document.getElementById("listprice").value);
+				Obj.append('price', document.getElementById("price").value);
+				Obj.append('price50', document.getElementById("price50").value);
+				Obj.append('price100', document.getElementById("price100").value);
+				Obj.append('covertypeid', document.getElementById("covertypeid").value)
+				Obj.append('categoryid', document.getElementById("categoryid").value)
+				if (document.getElementById("oldImgUrl") !== null) {
+					Obj.append('oldImgUrl', document.getElementById("oldImgUrl").value);
+				}
+                if (document.getElementById("uploadBox") !== null) {
+                    Obj.append('file', fileInput.files[0]);
+                }
+
                 $.ajax({
 					type: "POST",
 					url: "@Url.Action("PostApi")",
 					dataType: "json",
-                    data: {
-                        id: Id,
-						title: Title,
-						isbn: Isbn,
-						description: Description,
-                        author: Author,
-						listPrice: ListPrice,
-						price: Price,
-						price50: Price50,
-						price100: Price100,
-						imgUrl: ImgUrl
-					},
-					//contentType: "multipart/form-data, charset=UTF-8",
+                    data: Obj,
+					contentType: false,
+					processData: false,
                     success: function(data) {
 						if (data.success) {
-							$(location).attr('href', data.href);
-							@TempData["success"] = "success";
-							toastr.success(data.message);							
+                            $(location).attr('href', data.href);							
 						}
 						else {
 							toastr.error(data.message);

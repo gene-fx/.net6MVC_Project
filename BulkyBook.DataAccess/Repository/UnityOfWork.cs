@@ -1,5 +1,5 @@
 ﻿using BulkyBook.DataAccess.Repository.IRepository;
-using BulkyBook.DataAccess;
+using BulkyBook.Models;
 
 namespace BulkyBook.DataAccess.Repository
 {
@@ -14,6 +14,8 @@ namespace BulkyBook.DataAccess.Repository
             CoverType = new CoverTyperRepository(_db);
             Product = new ProductRepository(_db);
             Company = new CompanyRepository(_db);
+            ApplicationUser = new ApplicationUserRepository(_db);
+            ShoppingCart = new ShoppingCartRepository(_db);
         }
 
         public ICategoryRepository Category { get; private set; }
@@ -23,6 +25,10 @@ namespace BulkyBook.DataAccess.Repository
         public IProductRepository Product { get; private set; }
 
         public ICompanyRepository Company { get; set; }
+
+        public IApplicationUserRepository ApplicationUser { get; set; }
+
+        public IShoppingCartRepository ShoppingCart{ get; set; }
 
         public void Save()
         {

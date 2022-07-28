@@ -1,9 +1,11 @@
 ﻿using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
 using BulkyBook.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace BulkyBookWeb.Controllers
 {
@@ -25,39 +27,45 @@ namespace BulkyBookWeb.Controllers
             return View(products);
         }
 
-        public IActionResult Detail(int id)
+        public IActionResult Detail(int productId)
         {
-            ShoppingCart shoppingCart = new()
+            ShoppingCart objCart = new()
             {
-                Product = _unityOfWork.Product.GetFirstOrDefault(x => x.Id == id, includeProperties: "Category,CoverType"),
+                ProductId = productId,
+                Product = _unityOfWork.Product.GetFirstOrDefault(x => x.Id == productId, includeProperties: "Category,CoverType"),
                 Count = 1
             };
             
-            return View(shoppingCart);
+            return View(objCart);
         }
 
-        //Get
-        public IActionResult ProductView(int id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public IActionResult Detail(ShoppingCart shoppingCart)
         {
-            Product product = _unityOfWork.Product.GetFirstOrDefault(x => x.Id == id);
-            ProductVm productVm = new()
-            {
-                Product = product,
-                CategoryList = _unityOfWork.Category
-                .GetAll().Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                }),
-                CoverTypeList = _unityOfWork.CoverType
-                .GetAll().Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                }),
-            };
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            shoppingCart.ApplicationUserId = claim.Value;
 
-            return View(productVm);
+            ShoppingCart cartFromDb = _unityOfWork.ShoppingCart.GetFirstOrDefault(u => u.ApplicationUserId == claim.Value &&
+                u.ProductId == shoppingCart.ProductId);
+
+            if(cartFromDb != null)
+            {
+                _unityOfWork.ShoppingCart.IncrementCount(cartFromDb, shoppingCart.Count);
+                TempData["Success"] = "Cart updated!";
+            }
+            else
+            {
+                _unityOfWork.ShoppingCart.Add(shoppingCart);
+                TempData["Success"] = "Product sucessefully added to cart!";
+            }
+
+            _unityOfWork.Save();
+
+            
+            return RedirectToAction(nameof(Index)); 
         }
 
         public IActionResult Privacy()

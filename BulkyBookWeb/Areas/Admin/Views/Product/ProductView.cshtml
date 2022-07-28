@@ -24,7 +24,7 @@
 				</div>
 				<div class="mb-3">
 					<label asp-for="Product.Description"></label>
-					<textarea asp-for="Product.Description" rows="3" class="form-control" disabled></textarea>
+					<textarea rows="3" class="form-control" disabled>@Html.Raw(Model.Product.Description)</textarea>
 				</div>
 				<div class="mb-3 col-6">
 					<label asp-for="Product.ISBN"></label>
@@ -65,7 +65,6 @@
 
 				<div class="mb-3">
 					<a asp-area="Admin" asp-controller="Product" asp-action="Upsert" asp-route-id="@Model.Product.Id" class="btn btn-outline-primary btn-lg col-6 me-1" style="width:150px; line-height: 0.7;">Update this product</a>
-					<a asp-controller="Home" asp-action="Detail" asp-route-id="@Model.Product.Id" class="btn btn-primary btn-lg col-6 me-1" style="width:150px; line-height: 1.4;">Add to cart</a>
 					<a asp-area="Admin" asp-controller="Product" asp-action="index" class="btn btn-outline-light btn-lg col-6 me-1" style="width:150px">Back to list</a>
 					<a class="btn btn-danger btn-lg me-1" style="width:150px; line-height: 1.4;" onclick="Delete('/Admin/Product/DeleteApi/@Model.Product.Id')">Delete</a>
 				</div>

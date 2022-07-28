@@ -34,6 +34,16 @@ builder.Services.Configure<FormOptions>(x => x.ValueCountLimit = int.MaxValue);
 //the class.
 builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
 
+//Configuring the routes because the indentity area. If u try to add a product to a cart without
+//been logged in this service will send u to the login and, once u r logged in, it returns u
+//to the page with the previus count u would add
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = $"/Identity/Account/Login";
+    options.LogoutPath = $"/Identity/Account/Logout";
+    options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+});
+
 // ------ end of "Add services to the container.
 
 var app = builder.Build();
